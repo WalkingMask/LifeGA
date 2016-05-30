@@ -1,0 +1,23 @@
+// 擬似クラス設計
+
+public class Main
+{}
+
+public class Individual
+{}
+
+public class Population
+{}
+
+public class GUI
+{}
+
+public class Initializer
+{}
+
+public class MaxRecorder
+{}
+
+?
+public class Administrator
+{}

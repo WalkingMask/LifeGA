@@ -1,23 +1,151 @@
 // 擬似クラス設計
+// ToDo
+//  乱択アルゴリズムの設計
+
+// グローバル変数など
+アイテムリスト
+個体番号リスト
+空き個体番号リスト
+群番号リスト
+空き群番号リスト
+
+
+// 基本クラスなど
 
 public class Main
-{}
+{
+    int32_t guiWidth;
+    int32_t guiHeight;
+    int32_t maxNumPopul = guiWidth*guiHeight; // 個体群の最大数
+}
 
 public class Individual
-{}
+{
+    int32_t indivNumber;
+    int32_t populNumber;
+    int32_t partnerNumber;
+    boolean sex;
+
+    int64_t chrom; // 64個の遺伝子を持つ
+    int32_t totalWeight;
+    int32_t totalPrice;
+    int32_t fitness;
+    int32_t lifespan;
+
+    // コンストラクタの設計
+    // 群番号個体番号を受け取る
+    // sexを1/2の確率で決定する
+    // chromを授かる
+    // chromからtotal...を計算
+    // total...からfitnessとlifespanを計算
+}
 
 public class Population
-{}
+{
+    int32_t populNumber;
+    List<individual> indivs; // 群に属する個体番号リスト
+
+    int32_t maxFitParam;
+    int32_t aveFitParam;
+    int32_t resources;
+
+    int getIndivsNum(){};
+}
 
 public class GUI
-{}
+{
+    int32_t guiWidth;
+    int32_t guiHeight;
+
+    color backgroundColor;
+    ArrayList<Int> populs; // 存在する群番号
+    List<color> dotColors;
+
+    int getPopulsNum(){};
+}
 
 public class Initializer
-{}
+{
+    void createInitPopus(){};
+}
 
-public class MaxRecorder
-{}
+public class MaxFitIndivRecorder
+{
+    int32_t maxFitIndvNumber;
+    int32_t maxFitPopulNuvmer;
+    int64_t maxFitIndvChrom;
+    int32_t maxFitIndvTotalWeight;
+    int32_t maxFitIndvTotalPrice;
+    int32_t maxFitIndvFitness;
 
-?
-public class Administrator
-{}
+    void getMaxFitIndv(){};
+}
+
+public class Breeding
+{
+}
+
+// その他必要な関数など
+値が小さい数ほど高い確率で出力する関数
+ 例えば 0:0.75, 1:0.125, 2:0.0625, 3:0.03125, 4:0.015625, 5:0.007... みたいな
+ 逆に数が大きくなるほど確率が高くなる場合も
+
+アイテムリストをファイルから読み込む関数
+ 読み込んだアイテムリストは適応度計算に使う
+
+1gen毎に発生する出会いをの数を算出する関数
+ 全個体数から？
+ 何かしらパラメータと確率を使って
+ 算出した数は出会い生成関数に渡される
+
+1gen毎に出会いを生成する関数
+ マッチングする個体対を乱択する
+ 選択自体は全個体等確率
+ 同性ならばその時点で失敗
+ 選択された個体は寿命によって出会いが成功するか決まる
+ 出会いが成功すると相性判断に移る
+
+2つの染色体の相性を判定して交配するか否かを決定する関数
+ 2つの個体のそれぞれの染色体を受け取る
+ そのANDをとる
+ sum(ANDの値) が小さいほど相性がいい(遺伝系統が遠い)
+ 相性値によって交配するか否かを確率的に決定
+ 0:50% 1:25% ... だと厳しすぎるか
+ 0~50:90% , 51~64:20% ... くらいか
+ 相性判断が成功すると交配に移る
+ 相性判断に失敗するとpartnerNumberが0になる
+ 相性判断に成功した場合
+  高確率でメスがオス側の群に移動する
+  低確率でオスがメス側の群に移動する
+  超低確率で2体で新しい群を作る
+  具体的にはそれぞれの群番号とそれぞれの群の個体リストを操作する
+
+1genごとに交配を司る関数
+ 各群の対個体リストの個体を交配させる
+ 新個体の発生は個体対の相性によって確率的に決まる
+  相性が良ければ1gen毎に起こりやすくなる
+  相性がそこそこなる3gen毎に
+  相性があまりなら5genごとに...みたいに
+ 個体同士の寿命によっても発生率が変動する
+  それぞれの寿命の平均？合計？によって変動
+  寿命が少ないほど発生率が低下
+ 生成した新個体によっても低下
+  新個体を生成した個体対は新個体の発生率が減る
+ 属する群のリソースと個体数の比に応じて新個体の発生数の確率が変動
+  例えばリソースの比が大きければ大きいほど新個体の発生率が高くなる
+
+新個体を発生させる関数
+ 交配が成功すると呼び出される
+ 交叉アルゴリズム
+ 突然変異アルゴリズム
+
+1genごとに寿命を奪う悪魔関数
+ その際以下のことも判定する
+  病気になる個体数と個体とそれぞれの減らす寿命
+  突然死する個体数と個体
+  流行病にかかる群数と群
+  大量絶滅する群数と群
+  
+個体群を分離させる関数
+
+個体を群間移動させる関数

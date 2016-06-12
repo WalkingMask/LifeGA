@@ -1,5 +1,9 @@
 GA with a life
 
+ref
+https://www.sist.ac.jp/~suganuma/kougi/other_lecture/SE/opt/GA/GA.htm
+http://ap.kakoku.net
+
 64bitナップザック問題をGAで解く
 processingでグラフィカルに世代交代を見る
 個体評価に「寿命」を使う

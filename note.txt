@@ -1,0 +1,9 @@
+全体クラスが
+public class LifeGA {}
+
+GUIとLifeGAはMainに属する
+
+LifeGAの中にindivやpopulが入るが...
+あくまでLifeGAの中のメインとなる存在はIndivであって
+Populやその他のものは概念の一つとなる
+Indivがあってのその他

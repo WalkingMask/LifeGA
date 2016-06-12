@@ -12,18 +12,42 @@
 
 // 基本クラスなど
 
+// processingのメイン関数になるかな
 public class Main
 {
     int32_t guiWidth;
     int32_t guiHeight;
-    int32_t maxNumPopul = guiWidth*guiHeight; // 個体群の最大数
+    int32_t maxNumPopuls = guiWidth*guiHeight; // 個体群の最大数
+
+    String filename = "items.txt"
+    List<Item> items;
+    void setItemList(filename, items)
+}
+
+public class GUI
+{
+    int32_t guiWidth;
+    int32_t guiHeight;
+
+    color bgColor; // background color
+    List<color> dotColors;
+}
+
+// アイテムリスト(gene's)を受け取る
+public class LifeGA
+{
+  List<Item> phenotype; // 表現型(アイテムリスト)
+  int maxNumPopul;
+  int numPopuls; // the number of existed populations
+  int numIndivs; // the number of existed individuals
+  ArrayList<Int> populs; // 存在する群番号
 }
 
 public class Individual
 {
-    int32_t indivNumber;
-    int32_t populNumber;
-    int32_t partnerNumber;
+    int32_t indivNum;
+    int32_t populNum;
+    int32_t partnerNum;
     boolean sex;
 
     int64_t chrom; // 64個の遺伝子を持つ
@@ -42,7 +66,7 @@ public class Individual
 
 public class Population
 {
-    int32_t populNumber;
+    int32_t populNum;
     List<individual> indivs; // 群に属する個体番号リスト
 
     int32_t maxFitParam;
@@ -52,18 +76,6 @@ public class Population
     int getIndivsNum(){};
 }
 
-public class GUI
-{
-    int32_t guiWidth;
-    int32_t guiHeight;
-
-    color backgroundColor;
-    ArrayList<Int> populs; // 存在する群番号
-    List<color> dotColors;
-
-    int getPopulsNum(){};
-}
-
 public class Initializer
 {
     void createInitPopus(){};
@@ -71,7 +83,7 @@ public class Initializer
 
 public class MaxFitIndivRecorder
 {
-    int32_t maxFitIndvNumber;
+    int32_t maxFitIndvNum;
     int32_t maxFitPopulNuvmer;
     int64_t maxFitIndvChrom;
     int32_t maxFitIndvTotalWeight;
@@ -83,6 +95,12 @@ public class MaxFitIndivRecorder
 
 public class Breeding
 {
+}
+
+public class Item
+{
+  int weight;
+  int price;  
 }
 
 // その他必要な関数など
@@ -113,7 +131,7 @@ public class Breeding
  0:50% 1:25% ... だと厳しすぎるか
  0~50:90% , 51~64:20% ... くらいか
  相性判断が成功すると交配に移る
- 相性判断に失敗するとpartnerNumberが0になる
+ 相性判断に失敗するとpartnerNumが0になる
  相性判断に成功した場合
   高確率でメスがオス側の群に移動する
   低確率でオスがメス側の群に移動する
@@ -149,3 +167,5 @@ public class Breeding
 個体群を分離させる関数
 
 個体を群間移動させる関数
+
+個体群のパラメータをRGBに変換する関数
